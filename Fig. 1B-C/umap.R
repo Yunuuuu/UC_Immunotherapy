@@ -1,4 +1,32 @@
 tcell_markers <- c("CD8A", "CD8B", "IFNG", "GZMB", "GNLY", "HAVCR2", "PDCD1")
+guide_axis_trunc <- function(lower = NULL, upper = NULL) {
+    if (is.null(lower) && is.null(upper)) {
+        return(ggplot2::guide_axis(cap = "both"))
+    }
+    ggplot2::ggproto(
+        NULL,
+        ggplot2::guide_axis(),
+        build_decor = function(self, decor, grobs, elements, params) {
+            if (ggplot2:::empty(decor)) {
+                return(ggplot2::zeroGrob())
+            }
+            if (!is.null(lower)) {
+                decor[[params$aesthetic]][1L] <- as.numeric(lower)
+            }
+            if (!is.null(upper)) {
+                decor[[params$aesthetic]][2L] <- as.numeric(upper)
+            }
+            ggplot2::element_grob(
+                elements$line,
+                x = grid::unit(decor$x, "npc"),
+                y = grid::unit(decor$y, "npc")
+            )
+        }
+    )
+}
+
+# tcells_subset_list: A list of `SingleCellExperiment` objects, each
+# representing a group of T cells
 tcell_marker_umap <- lapply(tcell_markers, function(marker) {
     out <- lapply(tcells_subset_list, function(obj) {
         scater::plotReducedDim(
@@ -11,10 +39,6 @@ tcell_marker_umap <- lapply(tcell_markers, function(marker) {
             force = 0
         ) +
             labs(x = NULL, y = NULL) +
-            # scale_color_gradientn(
-            #     name = NULL, colours = rev(rainbow(100, rev = TRUE)),
-            #     limits = c(0, 9)
-            # ) +
             guides(
                 x = guide_axis_trunc(upper = 0.3),
                 y = guide_axis_trunc(upper = 0.3),
