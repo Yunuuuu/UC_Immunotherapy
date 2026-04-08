@@ -7,8 +7,8 @@ if (rasterise) {
 }
 point_size <- 0.5
 
-sce_object <- qs::qread("MDSC_anno.qs")
-umap_subset <- qs::qread("MDSC_subset_umap_list.qs")
+sce_object <- qs::qread("sce_object.qs")
+umap_subset <- qs::qread("subset_umap_list.qs")
 
 marker_list <- list(
     Epithelium = c("EPCAM", "KRT19", "KRT13", "CLDN4", "FXYD3", "S100P"),
