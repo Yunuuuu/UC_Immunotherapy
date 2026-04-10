@@ -1,4 +1,4 @@
-# FGFR3-IRF2 Axis Drives Immune Suppression and Immuotherapy Resistance in Urothelial Carcinoma
+# Patient-derived organoid-immune co-cultures integrated with multi-omics reveals immunotherapy resistance mechanisms in urothelial carcinoma
 
 This repository provides all the code and data used to generate the figures in
-the manuscript `FGFR3-IRF2 Axis Drives Immune Suppression and Immuotherapy Resistance in Urothelial Carcinoma`.
+the manuscript `Patient-derived organoid-immune co-cultures integrated with multi-omics reveals immunotherapy resistance mechanisms in urothelial carcinoma`.
